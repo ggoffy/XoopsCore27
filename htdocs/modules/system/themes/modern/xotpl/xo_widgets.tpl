@@ -17,7 +17,7 @@
                     <{foreach key=stat_key item='stat_val' from=$widget.stats}>
                     <div class="widget-stat">
                         <div class="widget-stat-value"><{$stat_val|escape:'html'}></div>
-                        <div class="widget-stat-label"><{$stat_key|replace:'_':' '|capitalize}></div>
+                        <div class="widget-stat-label"><{$stat_key|replace:'_':' '|capitalize|escape:'html'}></div>
                     </div>
                     <{/foreach}>
                 </div>
