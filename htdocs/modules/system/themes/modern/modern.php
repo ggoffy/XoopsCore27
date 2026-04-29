@@ -397,9 +397,12 @@ class XoopsGuiModern extends XoopsSystemGui
         $basePath   = rtrim((string) parse_url(XOOPS_URL, PHP_URL_PATH), '/'); // '' on root, '/xoops27' on WAMP
 
         $isSystemAdmin      = ($pathUri === $basePath . '/modules/system/admin.php');
-        $isRefererSystem    = ($pathReferer === $basePath . '/modules/system/admin.php');
         $isControlPanelHome = ($pathUri === $basePath . '/admin.php');
-        $tpl->assign('showSystemServices', ($isSystemAdmin && $isRefererSystem) || $isControlPanelHome);
+        $fct = \Xmf\Request::getString('fct', '', 'GET');
+        $op  = \Xmf\Request::getString('op', '', 'GET');
+        $mod = \Xmf\Request::getInt('mod', 0, 'GET');
+        $isModulePreferenceEdit = $isSystemAdmin && $fct === 'preferences' && $op === 'showmod' && $mod > 0;
+        $tpl->assign('showSystemServices', $isControlPanelHome || ($isSystemAdmin && !$isModulePreferenceEdit));
 
         // assign vars
         $tpl->assign('sys_options', $system_services);
