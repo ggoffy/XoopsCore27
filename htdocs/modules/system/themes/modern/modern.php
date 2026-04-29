@@ -390,13 +390,16 @@ class XoopsGuiModern extends XoopsSystemGui
         }
 
         // Detect whether system panel should be opened
-        $requestUri = \Xmf\Request::getString('REQUEST_URI', '', 'SERVER');
-        $path       = (string) parse_url($requestUri, PHP_URL_PATH);          // strip query string
+        $requestUri  = \Xmf\Request::getString('REQUEST_URI', '', 'SERVER');
+        $pathUri     = (string) parse_url($requestUri, PHP_URL_PATH);          // strip query string
+        $httpReferer = \Xmf\Request::getString('HTTP_REFERER', '', 'SERVER');
+        $pathReferer = (string) parse_url($httpReferer, PHP_URL_PATH);
         $basePath   = rtrim((string) parse_url(XOOPS_URL, PHP_URL_PATH), '/'); // '' on root, '/xoops27' on WAMP
 
-        $isSystemAdmin      = ($path === $basePath . '/modules/system/admin.php');
-        $isControlPanelHome = ($path === $basePath . '/admin.php');
-        $tpl->assign('showSystemServices', $isSystemAdmin || $isControlPanelHome);
+        $isSystemAdmin      = ($pathUri === $basePath . '/modules/system/admin.php');
+        $isRefererSystem    = ($pathReferer === $basePath . '/modules/system/admin.php');
+        $isControlPanelHome = ($pathUri === $basePath . '/admin.php');
+        $tpl->assign('showSystemServices', ($isSystemAdmin && $isRefererSystem) || $isControlPanelHome);
 
         // assign vars
         $tpl->assign('sys_options', $system_services);
