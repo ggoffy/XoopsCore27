@@ -380,15 +380,11 @@ body.dark-mode #buttontop_mod td a:hover {
     background-image: none !important;
     color: white !important;
     font-weight: bold !important;
-}
-#xo-breadcrumb a {
     display: inline-flex !important;
     align-items: center;
     text-decoration: none;
-    padding: 4px 6px;
-    border-radius: 4px;
+    border-radius: var(--radius-sm) !important;
     transition: background 0.2s ease, color 0.2s ease;
-    font-weight: bold !important;
 }
 #xo-breadcrumb a:hover {
     background-image: none !important;
