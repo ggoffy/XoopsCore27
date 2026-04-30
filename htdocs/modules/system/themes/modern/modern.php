@@ -392,8 +392,6 @@ class XoopsGuiModern extends XoopsSystemGui
         // Detect whether system panel should be opened
         $requestUri  = \Xmf\Request::getString('REQUEST_URI', '', 'SERVER');
         $pathUri     = (string) parse_url($requestUri, PHP_URL_PATH);          // strip query string
-        $httpReferer = \Xmf\Request::getString('HTTP_REFERER', '', 'SERVER');
-        $pathReferer = (string) parse_url($httpReferer, PHP_URL_PATH);
         $basePath   = rtrim((string) parse_url(XOOPS_URL, PHP_URL_PATH), '/'); // '' on root, '/xoops27' on WAMP
 
         $isSystemAdmin      = ($pathUri === $basePath . '/modules/system/admin.php');
